@@ -60,10 +60,10 @@ npm run start:prod
 
 The service throws meaningful NestJS exceptions:
 
-| Error | Status | Reason |
+<!-- | Error | Status | Reason |
 |-------|--------|--------|
 | `BadRequestException` | 400 | Invalid input (negative amount, self-transfer, insufficient balance) |
-| `NotFoundException` | 404 | Wallet not found |
+| `NotFoundException` | 404 | Wallet not found | -->
 
 Example error response:
 ```json
@@ -73,7 +73,7 @@ Example error response:
   "error": "Bad Request"
 }
 ```
-
+<!-- 
 ## Design Decisions
 
 ### In-Memory Storage
@@ -143,7 +143,7 @@ The service includes comprehensive unit tests covering:
 - Funding with validation
 - Transfer with balance checks
 - Transaction history tracking
-- Error cases
+- Error cases -->
 
 Run tests:
 ```bash
@@ -162,7 +162,3 @@ npm test:cov          # With coverage report
 - [ ] Rate limiting by user/IP
 - [ ] Comprehensive audit logging
 - [ ] Integration tests with database
-
-## License
-
-MIT
