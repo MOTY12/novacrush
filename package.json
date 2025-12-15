@@ -2,7 +2,7 @@
   "name": "wallet-service",
   "version": "1.0.0",
   "description": "NestJS Wallet Service with in-memory storage",
-  "author": "Backend Team",
+  "author": "Mukhtar Yusuf",
   "private": true,
   "license": "MIT",
   "scripts": {

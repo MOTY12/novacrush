@@ -135,7 +135,7 @@ To scale this service for production:
 - Clear, actionable error messages
 - Helps clients understand what went wrong
 - Includes context (available balance, required amount)
-
+-->
 ## Testing
 
 The service includes comprehensive unit tests covering:
@@ -143,7 +143,7 @@ The service includes comprehensive unit tests covering:
 - Funding with validation
 - Transfer with balance checks
 - Transaction history tracking
-- Error cases -->
+- Error cases 
 
 Run tests:
 ```bash
