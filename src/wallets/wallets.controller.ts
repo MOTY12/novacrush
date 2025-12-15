@@ -17,18 +17,12 @@ import {
   WalletDetailsDto,
 } from './dto/wallet.dto';
 
-/**
- * Wallets Controller
- * Handles HTTP endpoints for wallet operations
- */
+
 @Controller('wallets')
 export class WalletsController {
   constructor(private readonly walletsService: WalletsService) {}
 
-  /**
-   * POST /wallets
-   * Create a new wallet with default balance = 0
-   */
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   createWallet(
@@ -37,10 +31,7 @@ export class WalletsController {
     return this.walletsService.createWallet(createWalletDto);
   }
 
-  /**
-   * POST /wallets/:id/fund
-   * Fund a wallet with a positive amount
-   */
+
   @Post(':id/fund')
   @HttpCode(HttpStatus.OK)
   fundWallet(
@@ -50,10 +41,6 @@ export class WalletsController {
     return this.walletsService.fundWallet(walletId, fundWalletDto);
   }
 
-  /**
-   * POST /wallets/transfer
-   * Transfer funds from one wallet to another
-   */
   @Post('transfer')
   @HttpCode(HttpStatus.OK)
   transferFunds(
@@ -62,20 +49,14 @@ export class WalletsController {
     return this.walletsService.transferFunds(transferFundsDto);
   }
 
-  /**
-   * GET /wallets/:id
-   * Get wallet details with transaction history
-   */
+
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   getWalletDetails(@Param('id') walletId: string): WalletDetailsDto {
     return this.walletsService.getWalletDetails(walletId);
   }
 
-  /**
-   * GET /wallets
-   * Get all wallets (admin/debugging)
-   */
+
   @Get()
   @HttpCode(HttpStatus.OK)
   getAllWallets(): WalletResponseDto[] {

@@ -2,10 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
-/**
- * Application Bootstrap
- * Sets up the NestJS application with validation and error handling
- */
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 

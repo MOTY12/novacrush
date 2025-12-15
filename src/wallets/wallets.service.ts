@@ -10,23 +10,14 @@ import {
   WalletDetailsDto,
 } from './dto/wallet.dto';
 
-/**
- * Wallet Service
- *
- * Manages wallet operations and transactions with in-memory storage.
- * This approach is suitable for development and testing. For production,
- * consider replacing Maps with a database solution like PostgreSQL or MongoDB
- * to ensure data persistence and enable horizontal scaling.
- */
+
 @Injectable()
 export class WalletsService {
   // In-memory storage for wallets and transactions
   private wallets: Map<string, Wallet> = new Map();
   private transactions: Map<string, Transaction[]> = new Map();
 
-  /**
-   * Create a new wallet with default balance of 0
-   */
+
   createWallet(createWalletDto: CreateWalletDto): WalletResponseDto {
     const walletId = uuidv4();
     const wallet = new Wallet(
@@ -41,10 +32,7 @@ export class WalletsService {
     return this.mapWalletToDto(wallet);
   }
 
-  /**
-   * Fund a wallet with a positive amount
-   * Creates a FUND type transaction
-   */
+
   fundWallet(walletId: string, fundWalletDto: FundWalletDto): WalletResponseDto {
     const wallet = this.validateWalletExists(walletId);
 
@@ -69,10 +57,6 @@ export class WalletsService {
     return this.mapWalletToDto(wallet);
   }
 
-  /**
-   * Transfer funds from one wallet to another
-   * Validates sender and receiver, prevents negative balance
-   */
   transferFunds(transferFundsDto: TransferFundsDto): WalletDetailsDto {
     const { fromWalletId, toWalletId, amount } = transferFundsDto;
 
@@ -92,14 +76,12 @@ export class WalletsService {
       );
     }
 
-    // Check sufficient balance (critical for financial integrity)
     if (fromWallet.balance < amount) {
       throw new BadRequestException(
         `Insufficient balance. Available: ${fromWallet.balance}, Requested: ${amount}`,
       );
     }
 
-    // Execute transfer (atomic operation)
     fromWallet.balance -= amount;
     fromWallet.updatedAt = new Date();
 
@@ -122,9 +104,7 @@ export class WalletsService {
     return this.getWalletDetails(fromWalletId);
   }
 
-  /**
-   * Get wallet details with full transaction history
-   */
+
   getWalletDetails(walletId: string): WalletDetailsDto {
     const wallet = this.validateWalletExists(walletId);
     const walletTransactions = this.transactions.get(walletId) || [];
@@ -142,18 +122,14 @@ export class WalletsService {
     };
   }
 
-  /**
-   * Get all wallets (useful for debugging/admin)
-   */
+
   getAllWallets(): WalletResponseDto[] {
     return Array.from(this.wallets.values()).map((wallet) =>
       this.mapWalletToDto(wallet),
     );
   }
 
-  /**
-   * Helper: Validate wallet exists, throw 404 if not
-   */
+ 
   private validateWalletExists(walletId: string): Wallet {
     const wallet = this.wallets.get(walletId);
     if (!wallet) {
@@ -162,9 +138,6 @@ export class WalletsService {
     return wallet;
   }
 
-  /**
-   * Helper: Map Wallet entity to DTO
-   */
   private mapWalletToDto(wallet: Wallet): WalletResponseDto {
     return {
       id: wallet.id,
